@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/sculvate/static/css/main.bc7908ea.css",
+    "main.js": "/sculvate/static/js/main.53d5a7b9.js",
+    "static/media/header_img.png": "/sculvate/static/media/header_img.27d8b88aaf023c9f1822.png",
+    "static/media/loginArt.png": "/sculvate/static/media/loginArt.566ac87160768431f6d5.png",
+    "static/media/logo.png": "/sculvate/static/media/logo.5d9736743cf3f5d00553.png",
+    "static/media/menu2.png": "/sculvate/static/media/menu2.197b5d9dbaf2dd025907.png",
+    "static/media/menu3.png": "/sculvate/static/media/menu3.42841bcbd3a51dd42a4a.png",
+    "static/media/menu1.png": "/sculvate/static/media/menu1.4a9012c359a813bc4294.png",
+    "index.html": "/sculvate/index.html",
+    "static/media/mail_icon.svg": "/sculvate/static/media/mail_icon.8d26ca4a463fe92ce7653b91e4f64e01.svg",
+    "main.bc7908ea.css.map": "/sculvate/static/css/main.bc7908ea.css.map",
+    "main.53d5a7b9.js.map": "/sculvate/static/js/main.53d5a7b9.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.bc7908ea.css",
+    "static/js/main.53d5a7b9.js"
+  ]
+}
