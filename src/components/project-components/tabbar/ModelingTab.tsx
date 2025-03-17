@@ -11,7 +11,7 @@ import CubeMenu from "../babylonjs/ActionsBar/Create/CubeMenu";
 import CylinderMenu from "../babylonjs/ActionsBar/Create/CylinderMenu";
 import SphereMenu from "../babylonjs/ActionsBar/Create/SphereMenu";
 import MyIcon from "assets/MyIcons";
-import { Storage } from "aws-amplify";
+// import { Storage } from "aws-amplify";
 import { useAppSelector, useAppDispatch } from "state/hooks";
 import { selectUsername } from "state/reducers/authSlice";
 import { v4 as uuid } from "uuid";
@@ -25,13 +25,13 @@ import {
   modelAdded,
 } from "state/reducers/modelSlice";
 import { addHistory } from "state/reducers/historySlice";
-import Materials from "../babylonjs/types/materials";
+// import Materials from "../babylonjs/types/materials";
 import step2stl from "services/step2stl.service";
 import { STLFileLoader } from "babylonjs-loaders";
 import { hideMeshes, showMeshes } from "./TabUtils";
 import { useParams } from "react-router-dom";
-import { CognitoUserPool } from "amazon-cognito-identity-js";
-import { read } from "fs";
+// import { CognitoUserPool } from "amazon-cognito-identity-js";
+// import { read } from "fs";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { selectMaterials } from "state/reducers/userSlice";
@@ -47,14 +47,14 @@ interface ModelingTabProps {
 }
 
 const ModelingTab = ({
-  objects,
-  setObjects,
-  selectedObjects,
-  setSelectedObjects,
+  // objects,
+  // setObjects,
+  // selectedObjects,
+  // setSelectedObjects,
   mainScene,
 }: ModelingTabProps) => {
   const username = useAppSelector(selectUsername);
-  const [menuPosition, setMenuPosition] = useState({ x: 0, y: 0 });
+  // const [menuPosition, setMenuPosition] = useState({ x: 0, y: 0 });
   const [cubeMenuVisible, setCubeMenuVisible] = useState(false);
   const [sphereMenuVisible, setSphereMenuVisible] = useState(false);
   const [cylinderMenuVisible, setCylinderMenuVisible] = useState(false);
@@ -92,7 +92,7 @@ const ModelingTab = ({
 
   useEffect(() => {
     let selectedModels: any[] = arrayModel.filter(
-      (model: any) => model.selected && model.type != "folder"
+      (model: any) => model.selected && model.type !== "folder"
     );
 
     if (selectedModels.length > 0) {
@@ -120,7 +120,7 @@ const ModelingTab = ({
     setExtrudeMenuVisible(false);
 
     const selectedModels = arrayModel.filter(
-      (model) => model.selected && model.type != "folder"
+      (model) => model.selected && model.type !== "folder"
     );
     if (type === "translate") {
       if (selectedModels.length > 0) {
@@ -155,7 +155,7 @@ const ModelingTab = ({
         });
       }
     }
-    setMenuPosition({ x: e.pageX - 100, y: e.pageY + 30 });
+    // setMenuPosition({ x: e.pageX - 100, y: e.pageY + 30 });
   };
 
   const getMaterial = (color: string) => {
@@ -356,7 +356,7 @@ const ModelingTab = ({
 
   const handleMerge = async (e: any) => {
     let selectedModels: any[] = arrayModel.filter(
-      (model: any) => model.selected && model.type != "folder"
+      (model: any) => model.selected && model.type !== "folder"
     );
     if (selectedModels.length < 2) {
       toast.error("Please select at least two objects to merge.", {
@@ -422,7 +422,7 @@ const ModelingTab = ({
 
   const handleSubtract = async (e: any) => {
     let selectedModels: any[] = arrayModel.filter(
-      (model: any) => model.selected && model.type != "folder"
+      (model: any) => model.selected && model.type !== "folder"
     );
     if (selectedModels.length !== 2) {
       toast.error("Please select two objects to subtract.", {
@@ -480,7 +480,7 @@ const ModelingTab = ({
 
   const handleIntersect = async (e: any) => {
     let selectedModels: any[] = arrayModel.filter(
-      (model: any) => model.selected && model.type != "folder"
+      (model: any) => model.selected && model.type !== "folder"
     );
     if (selectedModels.length !== 2) {
       toast.error("Please select two objects to intersect.", {
@@ -546,7 +546,7 @@ const ModelingTab = ({
 
   const handleInsert = async (e: any) => {
     let selectedModels: any[] = arrayModel.filter(
-      (model: any) => model.selected && model.type != "folder"
+      (model: any) => model.selected && model.type !== "folder"
     );
     if (selectedModels.length !== 2) {
       toast.error("Please select two objects to insert.", {

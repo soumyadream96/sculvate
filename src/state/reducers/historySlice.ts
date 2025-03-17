@@ -1,10 +1,10 @@
-import { createSlice, original } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "..";
 import { Storage } from "aws-amplify";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { useParams } from "react-router-dom";
-import { useAppSelector } from "state/hooks";
-import { selectUsername } from "state/reducers/authSlice";
+// import { useParams } from "react-router-dom";
+// import { useAppSelector } from "state/hooks";
+// import { selectUsername } from "state/reducers/authSlice";
 import { replaceParameterToValue } from "utilities";
 import { v4 as uuid } from "uuid";
 
@@ -38,25 +38,25 @@ export const addHistory = createAsyncThunk<
     const dataBody = data.Body;
     if (dataBody) {
       const dataString = await dataBody.text();
-      const jsonArray:any = JSON.parse(dataString).length != 0 ? JSON.parse(dataString) : {};
+      const jsonArray:any = JSON.parse(dataString).length !== 0 ? JSON.parse(dataString) : {};
       
       let key = Object.keys(payloadData)[0];
 
-      if (key.indexOf("parameter") != -1) {
-        if (key.indexOf("edit") != -1) {
-          jsonArray.parameters.map((history: any) => {
+      if (key.indexOf("parameter") !== -1) {
+        if (key.indexOf("edit") !== -1) {
+          jsonArray.parameters.forEach((history: any) => {
             if (history.id === payloadData[key].id) {
               Object.assign(history, payloadData[key]);
               return;
             }
           });
-          jsonArray.historyList.map((history: any) => {
+          jsonArray.historyList.forEach((history: any) => {
             let k = Object.keys(history)[0];
             if (k === "translate" || k === "rotate" || k === "scale") {
-              if (history[k].factor.indexOf(payloadData[key].id) != -1) {
+              if (history[k].factor.indexOf(payloadData[key].id) !== -1) {
                 let str = history[k].factor;
                 str = str.toString().replace(/\s/g, "");
-                jsonArray.parameters.map((param: any) => {
+                jsonArray.parameters.forEach((param: any) => {
                   str = str.replaceAll(param.id.toString(), param.expression.toString());
                 });
 
@@ -72,14 +72,14 @@ export const addHistory = createAsyncThunk<
               }
             }
           });
-        } else if (key.indexOf("delete") != -1) {
-          let index = jsonArray.parameters.findIndex((history: any) => history.id == payloadData[key].id);
+        } else if (key.indexOf("delete") !== -1) {
+          let index = jsonArray.parameters.findIndex((history: any) => history.id === payloadData[key].id);
           
-          jsonArray.historyList.map((history: any) => {
+          jsonArray.historyList.forEach((history: any) => {
             let historyKey = Object.keys(history)[0];
             let keys2 = Object.keys(history[historyKey]);
-            keys2.map((k2: any) => {
-              if (k2 != "id" && k2 != "material" && k2 != "name" && typeof(history[historyKey][k2]) == "string") {
+            keys2.forEach((k2: any) => {
+              if (k2 !== "id" && k2 !== "material" && k2 !== "name" && typeof(history[historyKey][k2]) === "string") {
                 history[historyKey][k2] = replaceParameterToValue(history[historyKey][k2], payloadData[key].id, stringMath(jsonArray.parameters[index].expression)).toString();
               }
             });
@@ -87,20 +87,20 @@ export const addHistory = createAsyncThunk<
           jsonArray.parameters.splice(index, 1);
         }
         else {
-          if (jsonArray.parameters == undefined) {jsonArray.parameters = [];}
+          if (jsonArray.parameters === undefined) {jsonArray.parameters = [];}
           jsonArray.parameters.push(payloadData[key]);
         }
       }
       else {
-        if (key.indexOf("edit") != -1 || key.indexOf("change_name") != -1) {
-          jsonArray.historyList.map((history: any) => {
-            if (history[Object.keys(history)[0]].id === payloadData[key].id && Object.keys(history)[0].indexOf("create") != -1) {
+        if (key.indexOf("edit") !== -1 || key.indexOf("change_name") !== -1) {
+          jsonArray.historyList.forEach((history: any) => {
+            if (history[Object.keys(history)[0]].id === payloadData[key].id && Object.keys(history)[0].indexOf("create") !== -1) {
               Object.assign(history[Object.keys(history)[0]], payloadData[key]);
               return;
             }
           });
         } else {
-          if (jsonArray.historyList == undefined) {jsonArray.historyList = [];}
+          if (jsonArray.historyList === undefined) {jsonArray.historyList = [];}
           jsonArray.historyList.push(payloadData);
         }
       }

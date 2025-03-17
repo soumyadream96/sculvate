@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import { Amplify } from "aws-amplify";
-
+import { BrowserRouter } from 'react-router-dom';  
 Amplify.configure({
   Auth: {
     identityPoolId: "us-east-1:02b9e222-2dab-4f53-933a-e4c13fc7ffe8",
@@ -24,6 +24,8 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter basename="/sculvate">  
+      <App />  
+    </BrowserRouter>
   </React.StrictMode>
 );

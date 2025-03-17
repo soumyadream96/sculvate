@@ -1,13 +1,10 @@
-import Api from "./api";
 import { Storage } from "aws-amplify";
 
 const step2stl = async (username: any, projectId: any, data: any) => {
   await Storage.put(`${username}/projects/${projectId}/tmp/model.step`, data, {
     contentType: "application/octet-stream",
   });
-
-  const response = await Api.post("/step2stl", { projectId });
-
+  
   const stl = await Storage.get(
     `${username}/projects/${projectId}/tmp/stl.json`,
     {

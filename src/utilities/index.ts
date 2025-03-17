@@ -1,5 +1,5 @@
-import { Storage } from "aws-amplify";
-import { VertexBuffer } from "babylonjs/Meshes/buffer";
+// import { Storage } from "aws-amplify";
+// import { VertexBuffer } from "babylonjs/Meshes/buffer";
 
 const stringMath = require("string-math");
 
@@ -38,7 +38,7 @@ interface Parameter {
 }
 export const isParameter = (val: string, parameters: Array<Parameter>) => {
   let flag: boolean = false;
-  parameters.map((parameter) => {
+  parameters.forEach((parameter) => {
     if (parameter.name === val) flag = true;
   });
 
@@ -75,7 +75,8 @@ export const replaceParameterToValue = (val: string, param: string, value: strin
 export const replaceParametersToIds = (val: string, params: Array<Parameter>) => {
   let str = val.toString().replace(/\s/g, "");
 
-  const breakPoint = /\+|\-|\*|\/|\(|\)|\^|\%/;
+  // const breakPoint = /\+|\-|\*|\/|\(|\)|\^|\%/;
+  const breakPoint = /[+\-*/()^%]/;
   let mathmaticalSymbols: Array<string> = [];
   for (let i = 0; i < str.length; i++) {
     if (
@@ -92,10 +93,10 @@ export const replaceParametersToIds = (val: string, params: Array<Parameter>) =>
   }
   const words = str.toString().split(breakPoint);
   let resString: string = "";
-  words.map((word: string, index: number) => {
+  words.forEach((word: string, index: number) => {
     let cnt = 0;
-    params.map((param: Parameter) => {
-      if (word == param.name) {
+    params.forEach((param: Parameter) => {
+      if (word === param.name) {
         resString += param.id.toString();
         return;
       }
@@ -111,7 +112,7 @@ export const replaceParametersToIds = (val: string, params: Array<Parameter>) =>
 export const replaceIdsToParameters = (val: string, params: Array<Parameter>) => {
   let str = val.toString().replace(/\s/g, "");
 
-  params.map((param: Parameter) => {
+  params.forEach((param: Parameter) => {
     str = str.replaceAll(param.id.toString(), param.name.toString());
   });
   return str;
@@ -119,11 +120,11 @@ export const replaceIdsToParameters = (val: string, params: Array<Parameter>) =>
 
 export const calculate = (val: string, parameters: Array<Parameter>) => {
   let str = val.toString().replace(/\s/g, "");
-  parameters.map((param: Parameter) => {
+  parameters.forEach((param: Parameter) => {
     str = str.replaceAll(param.id.toString(), param.expression.toString());
   });
 
-  if (str == "") return NaN;
+  if (str === "") return NaN;
   try {
     let resVal = stringMath(str);
     return resVal;
@@ -152,7 +153,7 @@ export const getVertices = (mesh: any) => {
   }
   var numberOfPoints = positions.length / 3;
 
-  var level = false;
+  // var level = false;
   var map = [];
   var poLoc = [];
   var poGlob = [];
@@ -171,13 +172,13 @@ export const getVertices = (mesh: any) => {
       }
     }
     if (!found) {
-      var array: any = [];
+      var array2: any = [];
       poLoc.push(p.subtract(piv));
       poGlob.push(
         BABYLON.Vector3.TransformCoordinates(p, mesh.getWorldMatrix())
       );
-      array.push(p);
-      map.push(array);
+      array2.push(p);
+      map.push(array2);
     }
   }
   let tPoGlob: any = [];
@@ -213,7 +214,7 @@ export const wait = (miliSecs: any) => {
 
 export const centralPos = (models: any, mainScene: any) => {
   let pos = new BABYLON.Vector3(0, 0, 0);
-  models.map((model: any) => {
+  models.forEach((model: any) => {
     pos.x += mainScene.getMeshById(model.id)?.absolutePosition.x;
     pos.y += mainScene.getMeshById(model.id)?.absolutePosition.y;
     pos.z += mainScene.getMeshById(model.id)?.absolutePosition.z;
@@ -257,7 +258,7 @@ export const pickMesh=(pos:any,shape:any)=>{
   if(top<dis[minIndex]){
     let plane:any=[];
     console.log(sortedpoints)
-    sortedpoints.map((i:any)=>{
+    sortedpoints.forEach((i:any)=>{
       plane.push(new BABYLON.Vector3(i.x,i.y,i.z));
     })
     let tmp=sortedpoints[1];
@@ -275,7 +276,7 @@ export const pickMesh=(pos:any,shape:any)=>{
       arrow=1
     }
     let plane:any=[];
-    if(minIndex==(sortedpoints.length-1)){
+    if(minIndex===(sortedpoints.length-1)){
       console.log(sortedpoints[minIndex],sortedpoints[0],new BABYLON.Vector3(sortedpoints[0].x,sortedpoints[0].y+arrow*shape.height,sortedpoints[0].z),new BABYLON.Vector3(sortedpoints[minIndex].x,sortedpoints[minIndex].y+arrow*shape.height,sortedpoints[minIndex].z)); 
       plane.push(new BABYLON.Vector3(sortedpoints[minIndex].x,sortedpoints[minIndex].y,sortedpoints[minIndex].z))   
       plane.push(new BABYLON.Vector3(sortedpoints[0].x,sortedpoints[0].y,sortedpoints[0].z))   
@@ -313,7 +314,7 @@ function createPickFaceMesh(faces: any, pickedMesh: any, scene: any, faceId: any
   faces.forEach((e: any) => {
       newIndices.push(indices[e * 3], indices[e * 3 + 1], indices[e * 3 + 2],)
   })
-  if(tess!=0){
+  if(tess!==0){
 
   }
   if (pickedMesh instanceof BABYLON.Mesh) {
@@ -326,10 +327,13 @@ function createPickFaceMesh(faces: any, pickedMesh: any, scene: any, faceId: any
       let positionData: any = clone.getPositionData();
       let indexes: number[] = [];
       let resultPositions: any = [];
-      newIndices.map((indice: number) => {
+      newIndices.forEach((indice: number) => {
         let isDuplicatedIndex = false;
-        indexes.map((index: number) => {
-          if (indice === index) { isDuplicatedIndex = true; return; }
+        indexes.forEach((index: number) => {
+          if (indice === index) {
+            isDuplicatedIndex = true;
+            return; // Optional: Exit early if a duplicate is found
+          }
         });
         if (!isDuplicatedIndex) {
           resultPositions.push(new BABYLON.Vector3(positionData[3 * indice], positionData[3 * indice + 1], positionData[3 * indice + 2]));
@@ -342,9 +346,9 @@ function createPickFaceMesh(faces: any, pickedMesh: any, scene: any, faceId: any
       // console.log(center)
       planes.forEach((pointsindex: any[], index: number) => {
           var points: BABYLON.Vector3[]=[]
-          pointsindex.map((i)=>{
+          pointsindex.forEach((i) => {
             points.push(new BABYLON.Vector3(positionData[3 * i], positionData[3 * i + 1], positionData[3 * i + 2]));
-          })
+          });
           const distance = calculateDistanceFromCenter(points, center);
           distances[index] = distance; // Assign the distance to the distances array
       });
@@ -358,9 +362,9 @@ function createPickFaceMesh(faces: any, pickedMesh: any, scene: any, faceId: any
       }
       if((pickedMesh.name==="Cylinder")&&(planes[minIndex]!==undefined)){
         var p: BABYLON.Vector3[]=[];
-        planes[minIndex].map((i)=>{
+        planes[minIndex].forEach((i) => {
           p.push(new BABYLON.Vector3(positionData[3 * i], positionData[3 * i + 1], positionData[3 * i + 2]));
-        })  
+        });
         return {positions: p, shape: clone} ;        
       }
       else{
@@ -375,7 +379,7 @@ function ischeckonplane(items:any[],tess:any){
   });
   uniqueArray.sort((a, b) => a - b);
   // console.log(uniqueArray)
-  if((uniqueArray[0]+parseInt(tess)+1==uniqueArray[2])&&(uniqueArray[1]+parseInt(tess)+1==uniqueArray[3]))return {status:true,val:uniqueArray};
+  if((uniqueArray[0]+parseInt(tess)+1===uniqueArray[2])&&(uniqueArray[1]+parseInt(tess)+1===uniqueArray[3]))return {status:true,val:uniqueArray};
   return {status:false,val:uniqueArray};
 }
 function dividePointsByPlanes(points: any[],tess:any): any[][] {
@@ -440,21 +444,21 @@ export const pickedFacePoints = (mesh: any, searchIndex = null) => {
         }
     } else {
         for (let i = 0; i < 3; i++) {
-            var p = new BABYLON.Vector3(
+            var p1 = new BABYLON.Vector3(
                 positions[(searchIndex + i) * 3],
                 positions[(searchIndex + i) * 3 + 1],
                 positions[(searchIndex + i) * 3 + 2]
             );
             let found = false;
             for (let j = 0; j < map.length && !found; j++) {
-                var array = map[j];
-                var p0 = array[0];
-                if (p0.equals(p) || (p0.subtract(p)).lengthSquared() < 0.01) {
+                var array1 = map[j];
+                var p01 = array1[0];
+                if (p01.equals(p1) || (p01.subtract(p1)).lengthSquared() < 0.01) {
                     found = true;
                 }
             }
             if (!found) {
-                globalPositions.push(BABYLON.Vector3.TransformCoordinates(p, mesh.getWorldMatrix()));
+                globalPositions.push(BABYLON.Vector3.TransformCoordinates(p1, mesh.getWorldMatrix()));
             }
         }
     }

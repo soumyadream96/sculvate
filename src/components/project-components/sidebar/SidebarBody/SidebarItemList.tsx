@@ -3,19 +3,19 @@ import React, {
   useEffect,
   useRef,
   useState,
-  useLayoutEffect,
+  // useLayoutEffect,
 } from "react";
 import MyIcon from "../../../../assets/MyIcons";
 import { DndProvider } from "react-dnd";
 import {
   Tree,
-  NodeModel,
+  // NodeModel,
   MultiBackend,
   getBackendOptions,
 } from "@minoru/react-dnd-treeview";
 // import { UncontrolledTreeEnvironment, Tree, StaticTreeDataProvider } from "react-complex-tree";
 
-import SidebarItem from "./SidebarItem";
+// import SidebarItem from "./SidebarItem";
 import ContextMenu from "../../babylonjs/ObjectComponent/ContextMenu";
 import CubeMenu from "components/project-components/babylonjs/ActionsBar/Create/CubeMenu";
 import SphereMenu from "components/project-components/babylonjs/ActionsBar/Create/SphereMenu";
@@ -23,7 +23,7 @@ import CylinderMenu from "components/project-components/babylonjs/ActionsBar/Cre
 import LumpedPortMenu from "components/project-components/babylonjs/ActionsBar/Create/LumpedPortMenu";
 import LumpedElementMenu from "components/project-components/babylonjs/ActionsBar/Create/LumpedElementMenu";
 import NewFolderMenu from "components/project-components/babylonjs/ActionsBar/Create/NewFolderMenu";
-import { v4 as uuid } from "uuid";
+// import { v4 as uuid } from "uuid";
 
 // Type and reducers
 import {
@@ -32,7 +32,7 @@ import {
   setFirstSelected,
   modelAltered,
   modelSaved,
-  modelAdded,
+  // modelAdded,
   selectModels,
 } from "state/reducers/modelSlice";
 
@@ -46,13 +46,13 @@ import { STLExport } from "babylonjs-serializers";
 import { Mesh } from "babylonjs";
 import CreateMaterialMenu from "components/project-components/babylonjs/ActionsBar/Create/CreateMaterialMenu";
 import DistanceMenu from "components/project-components/babylonjs/ActionsBar/Create/DistanceMenu";
-import { hideMeshes } from "components/project-components/tabbar/TabUtils";
+// import { hideMeshes } from "components/project-components/tabbar/TabUtils";
 import { selectSimulationProperties } from "state/reducers/simulationPropertiesSlice";
 import { addHistory } from "state/reducers/historySlice";
 import { selectUsername } from "state/reducers/authSlice";
 import { useParams } from "react-router-dom";
 import { ActiveContextMenuContext } from "../../../../contexts";
-import { render } from "@headlessui/react/dist/utils/render";
+// import { render } from "@headlessui/react/dist/utils/render";
 
 export interface SidebarItemListProps {
   itemType: string;
@@ -79,7 +79,7 @@ function SidebarItemList({
   const [clickedObject, setClickedObject] = useState({} as any);
   const [showMenu, setShowMenu] = useState(false);
   const [isMultiSelect, setIsMultiSelect] = useState(false);
-  const [isSelectedProperty, selectProperty] = useState(false);
+  // const [isSelectedProperty, selectProperty] = useState(false);
 
   const [cubeMenuVisible, setCubeMenuVisible] = useState(false);
   const [sphereMenuVisible, setSphereMenuVisible] = useState(false);

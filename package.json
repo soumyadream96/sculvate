@@ -62,11 +62,14 @@
   "overrides": {
     "typescript": "^5.1.6"
   },
+  "homepage": "https://soumyadream96.github.io/sculvate",
   "scripts": {
     "start": "react-scripts --openssl-legacy-provider start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",  
+    "deploy": "gh-pages -d build" 
   },
   "eslintConfig": {
     "extends": [
@@ -91,6 +94,7 @@
     "@types/react-plotly.js": "^2.6.0",
     "@types/uuid": "^9.0.2",
     "file-loader": "^6.2.0",
+    "gh-pages": "^6.3.0",
     "tailwindcss": "^3.3.3",
     "typescript": "^5.1.6"
   }

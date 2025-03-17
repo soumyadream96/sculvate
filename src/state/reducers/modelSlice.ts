@@ -59,7 +59,7 @@ const modelSlice = createSlice({
     },
     modelSaved(state, action) {
       state.savedModels.splice(0, state.savedModels.length);
-      action.payload.map((model: any) => {
+      action.payload.forEach((model: any) => {
         state.savedModels.push(model);
       });
     },
