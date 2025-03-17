@@ -1,0 +1,30 @@
+.parameters-bar {
+  bottom: 0;
+  width: 100%;
+  background-color: white;
+  border-style: solid;
+  border-color: #eaecf0;
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
+    var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+tr {
+  cursor: pointer;
+}
+
+.scrollable-table-body {
+  display: block;
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+.scrollable-table-head {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+
+.scrollable-table-row {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}

@@ -1,0 +1,13 @@
+gha_enabled: True
+branch: develop
+blocked_dirs: []
+draft: False
+description: "blitai/web is a TypeScript/React/Redux/Tailwind CSS project for web-based RF simulations on the cloud."
+
+sandbox:
+  install:
+    - npm i
+  check:
+    - "npx prettier --write {file_path}"
+    - "npx eslint {file_path}"
+    - npm run build
